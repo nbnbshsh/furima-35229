@@ -10,6 +10,7 @@ class User < ApplicationRecord
     validates :birthday
     validates :first_name,:last_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: '全角文字を使用してください' } 
     validates :first_furigana,:last_furigana, format: { with: /\A[ァ-ヶー－]+\z/, message: '全角カタカナを使用してください' } 
+    validates :encrypted_password,:password,:password_confirmation,length:{minimum:6},format:{with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/,message: "全て半角で英数字を混ぜて設定してください"}
   end
 
   #has_many :items
