@@ -139,23 +139,20 @@ RSpec.describe User, type: :model do
 
    it 'パスワードは英語のみでは登録できないこと' do
     @user.password="aaaaaa"
-    @user.password_confirmation="aaaaaa"
     @user.valid?
-    expect(@user.errors.full_messages).to include("Password 全て半角で英数字を混ぜて設定してください", "Password confirmation 全て半角で英数字を混ぜて設定してください")
+    expect(@user.errors.full_messages).to include("Password 全て半角で英数字を混ぜて設定してください")
    end
 
     it 'パスワードは数字のみでは登録できないこと' do
     @user.password="123456"
-    @user.password_confirmation="123456"
     @user.valid?
-    expect(@user.errors.full_messages).to include("Password 全て半角で英数字を混ぜて設定してください", "Password confirmation 全て半角で英数字を混ぜて設定してください")
+    expect(@user.errors.full_messages).to include("Password 全て半角で英数字を混ぜて設定してください")
     end
 
    it 'パスワードは全角では登録できないこと' do
     @user.password="ａ１２３４５６"
-    @user.password_confirmation="ａ１２３４５６"
     @user.valid?
-    expect(@user.errors.full_messages).to include("Password 全て半角で英数字を混ぜて設定してください", "Password confirmation 全て半角で英数字を混ぜて設定してください")
+    expect(@user.errors.full_messages).to include("Password 全て半角で英数字を混ぜて設定してください")
    end
    
     it 'ユーザー本名は、名字(first_name)だけ空欄の場合登録不可' do
