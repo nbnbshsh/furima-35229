@@ -2,16 +2,16 @@
 
 ## usersテーブル
 
-|Column               |Type     |Options     |
-|---------------------|---------|------------|
+|Column               |Type     |Options                  |
+|---------------------|---------|-------------------------|
 |email                |string   |null: false,unique: true |
-|encrypted_password   |string   |null: false |
-|nickname             |string   |null: false |
-|first_name           |string   |null: false |
-|last_name            |string   |null: false |
-|first_furigana       |string   |null: false |
-|last_furigana        |string   |null: false |
-|birthday             |date     |null: false |
+|encrypted_password   |string   |null: false              |
+|nickname             |string   |null: false              |
+|first_name           |string   |null: false              |
+|last_name            |string   |null: false              |
+|first_furigana       |string   |null: false              |
+|last_furigana        |string   |null: false              |
+|birthday             |date     |null: false              |
 
 
 ### Association
