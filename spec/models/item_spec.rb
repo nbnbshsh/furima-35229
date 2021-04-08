@@ -17,11 +17,18 @@ RSpec.describe User, type: :model do
      expect(@item).to be_valid
    end
 
-   it '¥300〜¥9,999,999までの価格なら出品可能'do
+   it '販売価格は¥300〜¥9,999,999までなら出品可能'do
      @item.price=5000
      expect(@item).to be_valid
    end
+
+    it'販売価格は半角英数字のみ保存可能'do
+     @item.price=11111
+     expect(@item).to be_valid
+    end
   end
+
+
 
   context '出品が不可なとき' do
     it '画像が空だと出品不可'do
@@ -103,7 +110,11 @@ RSpec.describe User, type: :model do
      expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
    end
 
-
+   it'販売価格は半角英数字以外は保存不可'do
+    @item.price="123aaaaa"
+    @item.valid?
+    expect(@item.errors.full_messages).to include("Price is not a number")
+   end
 
 
   end
