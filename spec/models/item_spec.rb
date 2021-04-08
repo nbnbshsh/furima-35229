@@ -7,6 +7,11 @@ RSpec.describe User, type: :model do
    
 
   context '出品が可能なとき' do
+
+    it 'すべての情報が正しければ出品できる' do
+     expect(@item).to be_valid
+    end
+
    it '商品名が４０字以内のときは出品登録可能'do
      @item.item_name="a"*40
      expect(@item).to be_valid
@@ -110,8 +115,14 @@ RSpec.describe User, type: :model do
      expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
    end
 
-   it'販売価格は半角英数字以外は保存不可'do
+   it'販売価格は半角数字以外は保存不可'do
     @item.price="123aaaaa"
+    @item.valid?
+    expect(@item.errors.full_messages).to include("Price is not a number")
+   end
+
+   it'販売価格は全角数字は保存不可'do
+    @item.price="１２３４５６"
     @item.valid?
     expect(@item.errors.full_messages).to include("Price is not a number")
    end
