@@ -31,13 +31,13 @@ class OrdersController < ApplicationController
   end
 
   def redireting_soldout
-    if @item.order != nil
+    if @item.order != nil || current_user.id == @item.user_id
     return redirect_to root_path
     end 
   end
 
   def pay_item
-    Payjp.api_key = 'sk_test_a1e8f03a8a226752149bb151'
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: @item.price, # 商品の値段
       card: order_params[:token], # カードトークン
