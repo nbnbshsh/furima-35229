@@ -1,14 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item, only: [:index, :create]
+  before_action :redireting_soldout,only: [:index,:create]
 
   def index
-    if user_signed_in? && current_user.id != @item.user_id && @item.order == nil
-      @order_address = OrderAddress.new
-    else
-      return redirect_to root_path
-    end
-    
+    @order_address = OrderAddress.new
   end
 
   def create
@@ -32,6 +28,12 @@ class OrdersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def redireting_soldout
+    if @item.order != nil || current_user.id == @item.user_id
+    return redirect_to root_path
+    end 
   end
 
   def pay_item
