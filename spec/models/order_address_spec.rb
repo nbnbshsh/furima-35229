@@ -48,6 +48,18 @@ RSpec.describe OrderAddress, type: :model do
       expect(@order_address.errors.full_messages).to include("Telephone number can't be blank")
     end
 
+    it 'user_idが空のとき登録できない' do
+      @order_address.user_id = ''
+      @order_address.valid?
+      expect(@order_address.errors.full_messages).to include("User can't be blank")
+    end
+
+    it 'item_idが空のとき登録できない' do
+      @order_address.item_id = ''
+      @order_address.valid?
+      expect(@order_address.errors.full_messages).to include("Item can't be blank")
+    end
+
     it '郵便番号がハイフンなしの７文字のとき購入不可' do
       @order_address.postal_code = '1234567'
       @order_address.valid?
