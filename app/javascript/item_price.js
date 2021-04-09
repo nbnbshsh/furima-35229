@@ -1,6 +1,7 @@
  function tax() {
   const priceInput = document.getElementById("item-price");
-  priceInput.addEventListener('change', () => {
+  if(!priceInput){return false;}
+  priceInput.addEventListener('input', () => {
     const price = priceInput.value;
     const addTaxPrice = document.getElementById("add-tax-price");
     const profit =document.getElementById("profit");
