@@ -227,3 +227,11 @@
 .inc {
   font-size: 13px;
 }
+
+.new-image{
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+}
+ 
+

@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:item_name, :explain, :category_id, :condition_id, :delivery_fee_id, :prefecture_id, :delivery_date_id,
-                                 :price, :image).merge(user_id: current_user.id)
+                                 :price, images: []).merge(user_id: current_user.id)
   end
 
   def set_items
@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   end
 
   def editting_items
-    if crrent_user.id != @item.user_id || @item.order != nil
+    if current_user.id != @item.user_id || @item.order != nil
      return redirect_to root_path 
     end
   end
