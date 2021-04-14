@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index,:show]
-  before_action :set_items, only: [:show, :edit, :update, :destroy]
-  before_action :editting_items, only: [:edit, :update, :destroy]
+  before_action :set_items, only: [:show, :edit, :update, :destroy,:order]
+  before_action :editting_items, only: [:edit, :update, :destroy,:order]
   
   
   def index
@@ -40,6 +40,23 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
+  def order # 購入する時のアクションを定義
+    binding.pry
+    redirect_to new_card_path and return unless current_user.card.present?
+
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
+    customer_token = current_user.card.customer_token # ログインしているユーザーの顧客トークンを定義
+    Payjp::Charge.create(
+      amount: @item.price, # 商品の値段
+      customer: customer_token, # 顧客のトークン
+      currency: 'jpy' # 通貨の種類（日本円）
+      )
+    ItemOrder.create(item_id: params[:id]) # 商品のid情報を「item_id」として保存する
+    redirect_to root_path
+
+  end
+ 
+
   private
 
   def item_params
@@ -52,7 +69,7 @@ class ItemsController < ApplicationController
   end
 
   def editting_items
-    if current_user.id != @item.user_id || @item.order != nil
+    if current_user.id == @item.user_id || @item.item_order != nil
      return redirect_to root_path 
     end
   end

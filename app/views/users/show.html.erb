@@ -1,0 +1,125 @@
+<div class="AccountPage">
+  <div class="AccountPage__title">
+    <h1>マイページ</h1>
+  </div><br>
+  <div class="Card__title">
+    <h2>カード情報</h2>
+  </div>
+  <div class="Card_info">
+    【カード番号】
+    <br>
+    <%= "**** **** **** " + @card[:last4] %>
+    <%# カード番号の下4桁を取得 %>
+
+    <br>
+    【有効期限】
+    <br>
+    <%= @card[:exp_month] %>
+    <%# 有効期限の「月」を取得 %>
+    /
+    <%= @card[:exp_year] %>
+    <%# 有効期限の「年」を取得 %>
+  </div>
+  <div class="Account__info">
+    <h2>ユーザー情報</h2>
+  </div>
+  <div class="AccountPage__form">
+    <%= form_for(current_user) do |f| %>
+      <%# nickname %>
+      <div class="FormField">
+        <div class="FormField__name">
+          <%= f.label :nickname %>
+        </div>
+        <div class="FormField__name">
+          <%= f.text_field :nickname,autofocus: true %>
+        </div>
+      </div>
+      <%# email %>
+      <div class="FormField">
+        <div class="FormField__email">
+          <%= f.label :email %>
+        </div>
+        <div class="FormField__email">
+          <%= f.email_field :email %>
+        </div>
+        <br>
+      </div>
+      <%# password %>
+      <div class="FormField">
+        <div class="FormField__password">
+          <%= f.label :password %>
+        </div>
+        <div class="FormField__password">
+          <%= f.text_field :password,autofocus: true %>
+        </div>
+      </div>
+       <%# password確認 %>
+      <div class="FormField">
+        <div class="FormField__password_confirmation">
+          <%= f.label :password_confirmation %>
+        </div>
+        <div class="FormField__password_confirmation">
+          <%= f.text_field :password_confirmation,autofocus: true %>
+        </div>
+      </div>
+      <%# 名字 %>
+      <div class="FormField">
+        <div class="FormField__first_name">
+          <%= f.label :first_name %>
+        </div>
+        <div class="FormField__first_name">
+          <%= f.text_field :first_name,autofocus: true %>
+        </div>
+      </div>
+      <%# 名前 %>
+      <div class="FormField">
+        <div class="FormField__last_name">
+          <%= f.label :last_name %>
+        </div>
+        <div class="FormField__last_name">
+          <%= f.text_field :last_name,autofocus: true %>
+        </div>
+      </div>
+       <%# フリガナ名字 %>
+      <div class="FormField">
+        <div class="FormField__first_furigana">
+          <%= f.label :first_furigana %>
+        </div>
+        <div class="FormField__first_furigana">
+          <%= f.text_field :first_furigana,autofocus: true %>
+        </div>
+      </div>
+      <%# フリガナ名前 %>
+      <div class="FormField">
+        <div class="FormField__last_furigana">
+          <%= f.label :last_furigana %>
+        </div>
+        <div class="FormField__last_furigana">
+          <%= f.text_field :last_furigana,autofocus: true %>
+        </div>
+      </div>
+      <%# 誕生日 %>
+      <label class="FormField">生年月日</label>
+    </div>
+    <div class='FormField_birthday'>
+      <%= raw sprintf(
+                  f.date_select(
+                    :birthday,
+                    class:'select-birth',
+                    id:"birth-date",
+                    use_month_numbers: true,
+                    prompt:'--',
+                    start_year: 1930,
+                    end_year: (Time.now.year - 5),
+                    date_separator: '%s'),
+                  "<p> 年 </p>", "<p> 月 </p>") + "<p> 日 </p>" %>
+
+
+      <%= f.submit "更新する",class: "FormField" %>
+    <% end %>
+    <br>
+   <%= link_to "ログアウト", destroy_user_session_path, method: :delete%>
+   <br>
+   <%= link_to "商品一覧へ戻る", root_path%>
+  </div>
+</div>

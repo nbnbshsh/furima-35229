@@ -1,0 +1,5 @@
+.possition_page{
+  display:flex;
+  flex-flow: column;
+  justify-content:space-around;
+}

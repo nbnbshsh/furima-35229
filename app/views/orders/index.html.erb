@@ -7,7 +7,9 @@
     </h1>
     <%# 購入内容の表示 %>
     <div class='buy-item-info'>
-      <%= image_tag @item.image, class: 'buy-item-img' %>
+    <% @item.images.each do |image|%>
+      <%= image_tag image,class:"buy-item-img" %>
+      <%end%>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
           <%= @item.item_name %>
@@ -123,7 +125,8 @@
     </div>
     <%# /配送先の入力 %>
     <div class='buy-btn'>
-      <%= f.submit "購入" ,class:"buy-red-btn" %>
+      <%# <%= f.submit "購入" , class:"buy-red-btn" %> 
+      <%# <%= link_to '購入する', order_item_path(@item.id), method: :post ,class:"buy-red-btn"%> %>
     </div>
     <% end %>
   </div>

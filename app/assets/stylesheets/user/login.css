@@ -18,3 +18,11 @@
   text-align: center;
   color: red;
 }
+
+.login-google-btn {
+  width: 100%;
+  color: rgb(0, 119, 255);
+  line-height: 48px;
+  font-size: 20px;
+  cursor: pointer;
+}
