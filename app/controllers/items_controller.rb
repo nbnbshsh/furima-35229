@@ -1,23 +1,31 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index,:show]
   before_action :set_items, only: [:show, :edit, :update, :destroy,:order]
-  before_action :editting_items, only: [:edit, :update, :destroy,:order]
+  before_action :editting_items, only: [:edit, :update, :destroy]
+  before_action :order_editting_items, only: [:edit, :update, :destroy,:order]
   
   
   def index
     @items = Item.all.order(created_at: 'DESC')
   end
 
+  def search
+    return nil if params[:keyword] == ""
+    tag = Tag.where(['name LIKE ?', "%#{params[:keyword]}%"] )
+    render json:{ keyword: tag }
+  end
+
   def new
-    @item = Item.new
+    @item = ItemsTag.new
   end
 
   def show
   end
 
   def create
-    @item = Item.new(item_params)
-    if @item.save
+    @item = ItemsTag.new(item_params)
+    if @item.valid?
+      @item.save
       redirect_to root_path
     else
       render :new
@@ -41,7 +49,10 @@ class ItemsController < ApplicationController
   end
 
   def order # 購入する時のアクションを定義
-    binding.pry
+    if current_user.id == @item.user_id
+      return redirect_to root_path 
+     end
+
     redirect_to new_card_path and return unless current_user.card.present?
 
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
@@ -60,8 +71,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:item_name, :explain, :category_id, :condition_id, :delivery_fee_id, :prefecture_id, :delivery_date_id,
-                                 :price, images: []).merge(user_id: current_user.id)
+    params.require(:items_tag).permit(:name,:item_name, :explain, :category_id, :condition_id, :delivery_fee_id,:prefecture_id, :delivery_date_id,:price,images: []).merge(user_id: current_user.id)
   end
 
   def set_items
@@ -69,7 +79,13 @@ class ItemsController < ApplicationController
   end
 
   def editting_items
-    if current_user.id == @item.user_id || @item.item_order != nil
+    if current_user.id != @item.user_id
+     return redirect_to root_path 
+    end
+  end
+
+  def order_editting_items
+    if @item.item_order != nil
      return redirect_to root_path 
     end
   end
