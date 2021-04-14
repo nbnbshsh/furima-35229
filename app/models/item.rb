@@ -9,6 +9,8 @@ class Item < ApplicationRecord
   has_one :order
   has_many_attached :images
   has_one :item_order
+  has_many :tags, through: :item_tag_relations
+  has_many :item_tag_relations
 
   with_options presence: true do
     validates :item_name, length: { in: 1..40 }

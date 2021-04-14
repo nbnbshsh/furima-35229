@@ -10,10 +10,13 @@ Rails.application.routes.draw do
   root to: "items#index"
   resources :items do
     resources :orders, only: [:index,:create]
+    collection do
+      get 'search'
+    end
   end
 
-
   
+
   resources :users, only: [:show, :update]
   resources :cards, only: [:new, :create]
 

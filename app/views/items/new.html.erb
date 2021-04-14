@@ -19,12 +19,12 @@
         <p>
           クリックしてファイルをアップロード
         </p>
-       <%= f.file_field :images, name:"item[images][]",id:"item-image" %>
+       <%= f.file_field :images, name:"items_tag[images][]",id:"item-image" %>
          <div id="image-list"></div>
       </div>
-      <% @item.images.each do |image|%>
-            <%= image_tag image, class: "item-img" %>
-      <% end %>
+      <%# <% @item.images.each do |image|%> 
+            <%# <%= image_tag image, class: "item-img" %> 
+      <%# <% end %>
        
     </div>
     <%# /出品画像 %>
@@ -119,6 +119,14 @@
       </div>
     </div>
     <%# /販売価格 %>
+    <div class="tag-field", id='tag-field'>
+      <div class="weight-bold-text">
+        タグ
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_field :name, class:"input-tag" %>
+    </div>
+    <div id = 'search-result'></div>
 
     <%# 注意書き %>
     <div class="caution">
