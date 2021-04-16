@@ -26,12 +26,13 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @items=Item.all #ヘッダーの検索機能用に必要
+    @items = Item.all #ヘッダーの検索機能用に必要
+    @messages = Message.all
+    @message = Message.new
   end
 
   def create
     @item = ItemsTag.new(item_params)
-    binding.pry
     if @item.valid?
       @item.save
       redirect_to root_path
