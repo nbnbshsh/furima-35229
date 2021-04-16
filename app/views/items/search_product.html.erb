@@ -12,12 +12,18 @@
       カテゴリー【<%= result.category.name %>】
       価格【<%= result.price %>】
       <br>
+      <br>
+      <%=link_to "<< 詳細・購入ページ >>", "/items/#{result.id}"%>
+      ※売り切れの可能性あり
+      <br>
       <% result.images.each do |image|%>
             <%= image_tag image, class: "item-img" %>
       <%end%>
+      
     </li>
     <%end%>
  <% else %>
 該当する商品はありません
+<%= link_to "トップページへ戻る", root_path%>
  <% end %>
  
