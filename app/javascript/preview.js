@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
       const inputHTML =document.createElement('input')
       inputHTML.setAttribute('id', `item-image_${imageElementNum}`)
-      inputHTML.setAttribute('name', 'item[images][]')
+      inputHTML.setAttribute('name', 'items_tag[images][]')
       inputHTML.setAttribute('type', 'file')
 
       imageElement.appendChild(blobImage)

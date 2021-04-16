@@ -26,7 +26,7 @@ class User < ApplicationRecord
     validates :password, format: { with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]/, message: '全て半角で英数字を混ぜて設定してください' }
   end
 
-  has_many :items
+  has_many :items,dependent: :destroy
   has_many :orders
   has_one :card, dependent: :destroy
   has_one :address,foreign_key: 'user_id'

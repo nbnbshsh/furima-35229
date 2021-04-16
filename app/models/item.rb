@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   has_many_attached :images
   has_one :item_order
   has_many :tags, through: :item_tag_relations
-  has_many :item_tag_relations
+  has_many :item_tag_relations,dependent: :destroy
 
   with_options presence: true do
     validates :item_name, length: { in: 1..40 }
@@ -25,4 +25,13 @@ class Item < ApplicationRecord
   end
 
   validates :category_id, :condition_id, :delivery_fee_id, :prefecture_id, :delivery_date_id, numericality: { other_than: 1 }
+
+  def self.search(search)
+    if search != ""
+      Item.where('item_name LIKE(?)', "%#{search}%")
+    else
+      Item.all
+    end
+  end
+
 end

@@ -1,0 +1,23 @@
+<% breadcrumb :search %>
+<h1>
+検索結果
+</h1>
+ <% if @results !=nil %>
+   <% @results.each do |result| %>
+    <td>
+    <br>
+    <li>
+      商品名【<%= result.item_name %>】
+      状況【<%= result.condition.name %>】
+      カテゴリー【<%= result.category.name %>】
+      価格【<%= result.price %>】
+      <br>
+      <% result.images.each do |image|%>
+            <%= image_tag image, class: "item-img" %>
+      <%end%>
+    </li>
+    <%end%>
+ <% else %>
+該当する商品はありません
+ <% end %>
+ 

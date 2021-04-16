@@ -32,6 +32,11 @@ crumb :card_info do
   parent :root
 end
 
+crumb :search do
+  link  "検索結果ページ", search_items_path
+  parent :root
+end
+
 
 
 # crumb :projects do

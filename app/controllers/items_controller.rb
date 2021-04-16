@@ -1,12 +1,18 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index,:show]
-  before_action :set_items, only: [:show, :edit, :update, :destroy,:order]
+  before_action :set_items, only: [:show,:edit, :update, :destroy,:order]
   before_action :editting_items, only: [:edit, :update, :destroy]
   before_action :order_editting_items, only: [:edit, :update, :destroy,:order]
-  
+  before_action :search_item, except: [:destroy,:order]
+
+ 
   
   def index
     @items = Item.all.order(created_at: 'DESC')
+  end
+
+  def search_product
+    @results = @i.result
   end
 
   def search
@@ -20,10 +26,12 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @items=Item.all #ヘッダーの検索機能用に必要
   end
 
   def create
     @item = ItemsTag.new(item_params)
+    binding.pry
     if @item.valid?
       @item.save
       redirect_to root_path
@@ -36,7 +44,7 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.update(item_params)
+    if @item.update(item_only)
       redirect_to item_path(@item.id)
     else
       render :edit
@@ -53,7 +61,7 @@ class ItemsController < ApplicationController
       return redirect_to root_path 
      end
 
-    redirect_to new_card_path and return unless current_user.card.present?
+    redirect_to new_card_path and return unless current_user.card.present? 
 
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
     customer_token = current_user.card.customer_token # ログインしているユーザーの顧客トークンを定義
@@ -64,7 +72,7 @@ class ItemsController < ApplicationController
       )
     ItemOrder.create(item_id: params[:id]) # 商品のid情報を「item_id」として保存する
     redirect_to root_path
-
+   
   end
  
 
@@ -72,6 +80,10 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:items_tag).permit(:name,:item_name, :explain, :category_id, :condition_id, :delivery_fee_id,:prefecture_id, :delivery_date_id,:price,images: []).merge(user_id: current_user.id)
+  end
+
+  def item_only
+    params.require(:item).permit(:item_name, :explain, :category_id, :condition_id, :delivery_fee_id,:prefecture_id, :delivery_date_id,:price,images: [])
   end
 
   def set_items
@@ -89,6 +101,9 @@ class ItemsController < ApplicationController
      return redirect_to root_path 
     end
   end
-
   
+  def search_item
+    @i = Item.ransack(params[:q])  # 検索オブジェクトを生成
+  end
+
 end
