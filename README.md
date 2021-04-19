@@ -16,7 +16,8 @@
 
 ### Association
 has_many :items
-has_many :orders
+has_one :address
+has_one :cards
 
 ## itemsテーブル
 
@@ -36,22 +37,22 @@ has_many :orders
 
 ### Association
 belongs_to :user
-has_one :order
+has_one :item_order
+has_many :tags
+has_one :item_tag_relation
 
-## ordersテーブル
+
+## item_ordersテーブル
 
 |Column      |Type      |Options                        |
 |------------|----------|-------------------------------|
-|user        |references|null: false, foreign_key: true |
 |item        |references|null: false, foreign_key: true |
 
 
 ### Association
-has_one :address
 belongs_to :item
-belongs_to :user
 
-## addressテーブル
+## addressesテーブル
 
 |Column               |Type      |Options                        |
 |---------------------|----------|-------------------------------|
@@ -63,4 +64,37 @@ belongs_to :user
 |telephone_number     |string    |null: false                    |
 |order                |references|null: false, foreign_key: true |
 
-belongs_to :order
+### Association
+belongs_to :user
+
+## cardsテーブル
+
+|Column          |Type      |Options                        |
+|----------------|----------|-------------------------------|
+|user            |references|null: false, foreign_key: true |
+|customer_token  |string    |null: false                    |
+|card_token      |string    |null: false                    |
+
+### Association
+belongs_to :user
+
+# tagsテーブル
+|Column               |Type       |Options                        |
+|---------------------|-----------|-------------------------------|
+|name                 |string     |null: false                    |
+
+### Association
+has_many :items
+has_one :item_tag_relation
+
+# item_tag_relationsテーブル
+|Column          |Type      |Options                        |
+|----------------|----------|-------------------------------|
+|item            |references|null: false, foreign_key: true |
+|tag             |references|null: false, foreign_key: true |
+
+### Association
+belongs_to :item
+belongs_to :tag
+
+
