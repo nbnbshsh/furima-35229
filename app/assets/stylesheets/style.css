@@ -8,3 +8,17 @@ a.login-google-btn {
   display: flex;
   justify-content: center;
 }
+
+.account_info {
+  display: grid;
+  justify-content: center;
+}
+
+input#user_email {
+  width: 300px;
+}
+
+.AccountPage {
+  padding: 30px;
+  background-color: lightskyblue;
+}
