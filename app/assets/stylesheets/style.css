@@ -1,0 +1,10 @@
+.google_btn {
+  background-color: dodgerblue;
+  margin-top: 10px;
+}
+a.login-google-btn {
+  color: white;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+}
