@@ -22,3 +22,31 @@ input#user_email {
   padding: 30px;
   background-color: lightskyblue;
 }
+
+.search_result {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.search_info {
+  display: flex;
+  justify-content: center;
+}
+
+.search_mini_box {
+  border: dashed;
+    padding: 20px;
+    color: brown;
+    background-color: whitesmoke;
+}
+
+img.item-img {
+  width: 33vh;
+  height: auto;
+}
+
+.search_body {
+  background-color: lightblue;
+  min-height: 800px;
+}
