@@ -15,11 +15,11 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :item_name, length: { in: 1..40 }
     validates :explain, length: { in: 1..1000 }
-    validates :category_id
-    validates :condition_id
-    validates :delivery_fee_id
-    validates :prefecture_id
-    validates :delivery_date_id
+    validates :category_id,numericality: { other_than: 1 }
+    validates :condition_id,numericality: { other_than: 1 }
+    validates :delivery_fee_id,numericality: { other_than: 1 }
+    validates :prefecture_id,numericality: { other_than: 1 }
+    validates :delivery_date_id,numericality: { other_than: 1 }
     validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
     validates :images
   end

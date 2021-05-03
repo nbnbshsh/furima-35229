@@ -50,3 +50,18 @@ img.item-img {
   background-color: lightblue;
   min-height: 800px;
 }
+
+h2.address_info {
+  text-align: center;
+}
+
+.error_cls {
+  display: flex;
+  justify-content: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}

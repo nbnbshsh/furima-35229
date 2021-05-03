@@ -8,7 +8,15 @@ ja:
         last_name: 名前
         first_furigana: フリガナ(苗字)
         last_furigana: フリガナ(名前)
-      item:
+      address:
+        postal_code: 郵便番号
+        prefecture_id: 都道府県
+        municipality: 市区町村
+        address: 番地
+        telephone_number: 電話番号
+  activemodel:
+    attributes:
+      items_tag:
         images: 画像
         item_name: 商品名
         explain: 商品の説明
@@ -18,9 +26,4 @@ ja:
         delivery_fee_id: 配送料の負担
         prefecture_id: 発送元の地域
         delivery_date_id: 発送までの日数
-      order_address:
-        postal_code: 郵便番号
-        prefecture_id: 都道府県
-        municipality: 市区町村
-        address: 番地
-        telephone_number: 電話番号
+      

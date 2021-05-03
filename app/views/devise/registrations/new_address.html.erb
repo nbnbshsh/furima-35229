@@ -1,6 +1,8 @@
- <h2>住所情報登録</h2>
+ <h2 class="address_info">住所情報登録</h2>
  <%= form_for @address do |f| %>
-  <%= render "devise/shared/error_messages", resource: @address %>
+   <div class="error_cls">
+     <%= render "devise/shared/error_messages", resource: @address %>
+   </div>
  <%# 配送先の入力 %>
     <div class='shipping-address-form'>
       <h1 class='info-input-haedline'>
@@ -53,6 +55,6 @@
     <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
+  
 <% end %>
 
-<%= render "devise/shared/links" %>
