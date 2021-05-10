@@ -60,7 +60,7 @@ class ItemsController < ApplicationController
   def order # 購入する時のアクションを定義
     if current_user.id == @item.user_id
       return redirect_to root_path 
-     end
+    end
 
     redirect_to new_card_path and return unless current_user.card.present? 
 
